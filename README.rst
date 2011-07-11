@@ -11,6 +11,6 @@ Here is a list of the approach I want to test:
 
 
 
-.. OOC Programming language_: http://ooc-lang.org/
-.. Object Oriented Programming in C_: http://www.cs.rit.edu/~ats/books/ooc.pdf
-.. Object Oriented Programming in C Approaches_: http://home.comcast.net/~fbui/OOC.html
+.. _OOC Programming language: http://ooc-lang.org/
+.. _Object Oriented Programming in C: http://www.cs.rit.edu/~ats/books/ooc.pdf
+.. _Object Oriented Programming in C Approaches: http://home.comcast.net/~fbui/OOC.html
