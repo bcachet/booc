@@ -28,6 +28,6 @@ I use sublime text for this development. I have developed a new Build System tha
 	}
 	
 These task launch all the tests that are located in the _test_ directory using the rakefile.rb file provided by Ceedling.
-You just have to specify in the project.yml what is the test_file_prefix. In our case it is test_.
+You just have to specify in the project.yml what is the test_file_prefix..
 
 After you have selected the Build System to use in Tools > Build System, you just have to hit Cmd + B to launch the unit tests and see the result.
