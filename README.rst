@@ -14,3 +14,20 @@ Here is a list of the approach I want to test:
 .. _OOC Programming language: http://ooc-lang.org/
 .. _Object Oriented Programming in C: http://www.cs.rit.edu/~ats/books/ooc.pdf
 .. _Object Oriented Programming in C Approaches: http://home.comcast.net/~fbui/OOC.html
+
+
+
+Sublime Text 2
+______________
+
+I use sublime text for this development. I have developed a new Build System that contains the following:
+
+	{
+		"cmd": ["rake", "test:all"],
+		"working_dir": "${project_path:${folder}}/"
+	}
+	
+These task launch all the tests that are located in the _test_ directory using the rakefile.rb file provided by Ceedling.
+You just have to specify in the project.yml what is the test_file_prefix. In our case it is test_.
+
+After you have selected the Build System to use in Tools > Build System, you just have to hit Cmd + B to launch the unit tests and see the result.
