@@ -1,11 +1,8 @@
-#ifndef	STRING_H
-#define	STRING_H
+#ifndef	_STRING_H_
+#define	_STRING_H_
+
+#include "Object.h"
 
 extern const void * String;
-
-// struct String {
-// 	const void * class;
-// 	char * text;
-// } String;
 
 #endif

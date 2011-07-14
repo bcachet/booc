@@ -1,8 +1,10 @@
-#ifndef	STRING_R
-#define	STRING_R
+#ifndef	_STRING_R_
+#define	_STRING_R_
+
+#include "Object.r"
 
 struct String {
-	const void * class;
+	const struct Object _;
 	char * text;
 };
 

@@ -1,16 +1,15 @@
 #include "unity.h"
 
-#include "String.h"
 #include "Object.h"
 #include "Class.h"
 
-struct String *a;
-struct String *b;
+struct Object *a;
+struct Object *b;
 
 void setUp(void)
 {
-	a = new(String, "a");
-	b = new(String, "a");
+	a = new(Object);
+	b = new(Object);
 }
  
 void tearDown(void)
