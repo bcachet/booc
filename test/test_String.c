@@ -21,10 +21,16 @@ void tearDown(void)
 	release(c);
 }
 
-void test_Compare(void)
+void test_CompareDifferentObjects(void)
 {
 	TEST_ASSERT_EQUAL_INT(COMPARE_DIFFERENT, compare(a, b));
+}
+
+void test_CompareSameObject(void) {
 	TEST_ASSERT_EQUAL_INT(COMPARE_EQUAL, compare(a, a));
-	
+}
+
+void test_CompareDifferentObjectsSameString(void)
+{	
 	TEST_ASSERT_EQUAL_INT(COMPARE_EQUAL, compare(a, c));
 }
