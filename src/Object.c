@@ -6,17 +6,19 @@
 #include "Class.h"
 #include "Class.r"
 
+#include "CException.h"
+
 static void * Object_ctor (void * _self, va_list * app)
 {	
 	struct Object * self = _self;
-	self -> ref_counting = 1;
+	self -> ref_count = 1;
 	return self;
 }
 
 static void * Object_dtor (void * _self)
 {	
 	struct Object * self = _self;
-	self -> ref_counting = 0;
+	self -> ref_count = 0;
 	return self;
 }
 
@@ -30,13 +32,15 @@ const void * Object = & _Object;
 
 void * retain (void * _object) {
 	struct Object * self = _object;
-	self -> ref_counting++;
+	self -> ref_count++;
 
 }
 
 void release (void * _object) {
 	struct Object * self = _object;
-	self -> ref_counting--;
-	if (self -> ref_counting == 0)
+	if (self -> ref_count <= 0)
+		Throw(OBJECT_RELEASE_DELETED_OBJECT);
+	self -> ref_count--;
+	if (self -> ref_count == 0)
 		delete(_object);
 }

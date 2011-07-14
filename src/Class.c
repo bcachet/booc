@@ -18,20 +18,21 @@ void * new (const void * _class, ...)
 		p = class -> ctor(p, & ap);
 		va_end(ap);
 	}
-	printf("Create object %d\n", p);
 	return p;
 }
 
 void delete (void * self)
-{	const struct Class ** cp = self;
-	printf("Delete object %d\n", self);
+{	
+	const struct Class ** cp = self;
 	if (self && * cp && (* cp) -> dtor)
 		self = (* cp) -> dtor(self);
 	free(self);
+	self = 0;
 }
 
 size_t sizeOf (const void * self)
-{	const struct Class * const * cp = self;
+{	
+	const struct Class * const * cp = self;
 
 	assert(self && * cp);
 	return (* cp) -> size;

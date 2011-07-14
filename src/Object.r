@@ -3,7 +3,7 @@
 
 struct Object {
 	const void * class;
-	int ref_counting;
+	int ref_count;
 };
 
 #endif
