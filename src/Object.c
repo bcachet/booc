@@ -22,9 +22,15 @@ static void * Object_dtor (void * _self)
 	return self;
 }
 
+static void * Object_clone (const void * _self)
+{
+    return new(Object);
+}
+
 static const struct Class _Object = {
 	sizeof(struct Object),
-	Object_ctor, Object_dtor
+	Object_ctor, Object_dtor,
+	Object_clone, NULL
 };
 
 const void * Object = & _Object;
@@ -43,4 +49,9 @@ void release (void * _object) {
 	self -> ref_count--;
 	if (self -> ref_count == 0)
 		delete(_object);
+}
+
+void * class(const void * _object) {
+	const struct Object * self = _object;	
+	return self -> class;
 }

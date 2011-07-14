@@ -8,4 +8,6 @@ extern const void * Object;
 void * retain (void * object);
 void release (void * object);
 
+void * class(const void * object);
+
 #endif

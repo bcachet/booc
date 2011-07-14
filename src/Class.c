@@ -30,6 +30,18 @@ void delete (void * self)
 	self = 0;
 }
 
+void * clone(const void * self) {
+	const struct Class * const * cp = self;
+	assert(self && (*cp) && ((* cp) -> clone));
+	return (* cp) -> clone(self);
+}
+
+int compare(const void * self, const void * other) {
+	const struct Class * const * cp = self;
+	assert(self && (*cp) && ((* cp) -> compare));
+	return (* cp) -> compare(self, other);
+}
+
 size_t sizeOf (const void * self)
 {	
 	const struct Class * const * cp = self;

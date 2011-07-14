@@ -5,4 +5,6 @@
 
 extern const void * String;
 
+char * string(void * string);
+
 #endif
