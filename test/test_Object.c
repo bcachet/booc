@@ -20,24 +20,23 @@ void tearDown(void)
 	release(b);
 }
 
-void test_Retain(void)
+void test_RefCounting(void)
 {
-	int ref_count = a -> ref_count;
+	
 	a = retain(retain(a));
-	ref_count += 2;
-	TEST_ASSERT_EQUAL_INT(a->ref_count, ref_count);
+	
+	TEST_ASSERT_EQUAL_INT(a->ref_count, 3);
 	release(a);
 	release(a);
-	ref_count -= 2;
-	TEST_ASSERT_EQUAL_INT(a->ref_count, ref_count);
+	TEST_ASSERT_EQUAL_INT(a->ref_count, 1);
 	a = retain(retain(a));
-	ref_count += 2;
-	TEST_ASSERT_EQUAL_INT(a->ref_count, ref_count);
+	TEST_ASSERT_EQUAL_INT(a->ref_count, 3);
 	release(a);
 	release(a);
-	ref_count -= 2;
-	TEST_ASSERT_EQUAL_INT(a->ref_count, ref_count);
+	TEST_ASSERT_EQUAL_INT(a->ref_count, 1);
+}
 
+void test_ReleaseDeletedObject(void) {
 	struct Object *c = new(Object);
 	release(c);
 	CEXCEPTION_T e;
