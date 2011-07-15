@@ -5,7 +5,7 @@
 
 struct Array {
 	const struct Object _;
-	void ** elements;
+	void ** objects;
 	unsigned int count;
 	unsigned int size;
 };
