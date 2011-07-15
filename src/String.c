@@ -7,8 +7,7 @@
 #include "Class.h"
 #include "Class.r"
 
-static void * String_ctor (void * _self, va_list * app)
-{	
+static void * String_ctor (void * _self, va_list * app) {	
 	// Call Super constructor
 	struct String * self = ((const struct Class *) Object) -> ctor(_self, app);
 	
