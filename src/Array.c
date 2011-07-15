@@ -25,7 +25,7 @@ static void * Array_dtor (void * _self)
 	struct Array * self = _self;
 	int i = 0;
 	for (i = 0; i < self -> count; i++) {
-		release(*(self -> objects + i));
+		release(*(self -> objects + i*sizeof(void*)));
 	}
 	// free(self -> objects);
 	return self;
@@ -52,7 +52,7 @@ unsigned int array_add(void * _self, void * element) {
 		array_reallocateMemory(self);
 	}
 	assert(self -> objects);
-	*(self -> objects + self -> count) = retain(element);
+	*(self -> objects + self -> count*sizeof(void*)) = retain(element);
 	self -> count ++;
 	return self -> count - 1;
 }
@@ -67,10 +67,10 @@ unsigned int array_insert(void * _self, void * element, unsigned int _index) {
 	}	
 	int i = self -> count - 1;
 	while (i >= index) {
-		*(self -> objects + i + 1) = *(self -> objects + i);
+		*(self -> objects + (i + 1)*sizeof(void*)) = *(self -> objects + i*sizeof(void*));
 		i--;
 	}
-	*(self -> objects + index) = retain(element);
+	*(self -> objects + index*sizeof(void*)) = retain(element);
 	self -> count ++;
 	return index;
 }
@@ -78,7 +78,7 @@ unsigned int array_insert(void * _self, void * element, unsigned int _index) {
 void * array_get(void * _self, unsigned int index) {
 	struct Array * self = _self;
 	assert(index < self -> count);
-	return *(self -> objects + index);
+	return *(self -> objects + index*sizeof(void*));
 }
 
 void * array_remove(void * _self, unsigned int index) {
@@ -87,7 +87,7 @@ void * array_remove(void * _self, unsigned int index) {
 	void * element = *(self -> objects + index);
 	int i = index;
 	for (i = index; i < self -> count - 1; i++) {
-		*(self -> objects + i) = *(self -> objects + i + 1);
+		*(self -> objects + i*sizeof(void*)) = *(self -> objects + (i + 1)*sizeof(void*));
 	}
 	self -> count --;
 	release(element);
