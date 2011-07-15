@@ -28,8 +28,11 @@
     - -:test/support
   :source:
     - src/**
+  :include:
+    - include
   :support:
     - test/support
+  
 
 :defines:
   :commmon: &common_defines
