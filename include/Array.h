@@ -33,11 +33,15 @@ unsigned int array_add(void * array, void * element);
 */
 void * array_remove(void * array, unsigned int index);
 
+unsigned int array_insert(void * array, void * element, unsigned int index);
+
+void * array_get(void * array, unsigned int index);
+
 /**
 	Return the number of element stored inside the Array
 	@return Number of elements in the array
 */
-unsigned int array_count(void * array);
+const unsigned int array_count(void * array);
 
 /**
 	Return the size of the array: how many elements it can store without

@@ -54,7 +54,7 @@ static const struct Class _String = {
 const void * String = & _String;
 
 
-char * string(void * string) {
-	const struct String * self = string;
+char * string(void * _self) {
+	const struct String * self = _self;
 	return self -> text;
 }

@@ -50,7 +50,7 @@ const void * Object = & _Object;
 void * retain (void * _object) {
 	struct Object * self = _object;
 	self -> ref_count++;
-
+	return self;
 }
 
 void release (void * _object) {

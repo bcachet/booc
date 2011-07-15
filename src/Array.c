@@ -27,8 +27,7 @@ static void * Array_dtor (void * _self)
 	for (i = 0; i < self -> count; i++) {
 		release(*(self -> objects + i));
 	}
-	free(self -> objects);
-	self -> objects = 0;
+	// free(self -> objects);
 	return self;
 }
 
@@ -40,21 +39,50 @@ static const struct Class _Array = {
 
 const void * Array = & _Array;
 
-unsigned int array_add(void * array, void * element) {
-	struct Array * self = array;
+void array_reallocateMemory(void * _self) {
+	struct Array * self = _self;
+	self -> size += ARRAY_REALLOCATION_SIZE;
+	self -> objects = realloc(self -> objects, self -> size*sizeof(void*));
+	assert(self -> objects);
+}
+
+unsigned int array_add(void * _self, void * element) {
+	struct Array * self = _self;
 	if(self -> count >= self -> size) {
-		self -> size += ARRAY_REALLOCATION_SIZE;
-		self -> objects = realloc(self -> objects, self -> size);
+		array_reallocateMemory(self);
 	}
 	assert(self -> objects);
-	*(self -> objects + self -> count) = element;
-	retain(element);
+	*(self -> objects + self -> count) = retain(element);
 	self -> count ++;
 	return self -> count - 1;
 }
 
-void * array_remove(void * array, unsigned int index) {
-	struct Array * self = array;
+unsigned int array_insert(void * _self, void * element, unsigned int _index) {
+	struct Array * self = _self;
+	const int index = _index;
+	assert(index <= self -> count);
+
+	if(self -> count >= self -> size) {
+		array_reallocateMemory(_self);
+	}	
+	int i = self -> count - 1;
+	while (i >= index) {
+		*(self -> objects + i + 1) = *(self -> objects + i);
+		i--;
+	}
+	*(self -> objects + index) = retain(element);
+	self -> count ++;
+	return index;
+}
+
+void * array_get(void * _self, unsigned int index) {
+	struct Array * self = _self;
+	assert(index < self -> count);
+	return *(self -> objects + index);
+}
+
+void * array_remove(void * _self, unsigned int index) {
+	struct Array * self = _self;
 	assert(index < self -> count);
 	void * element = *(self -> objects + index);
 	int i = index;
@@ -66,12 +94,12 @@ void * array_remove(void * array, unsigned int index) {
 	return element;
 }
 
-unsigned int array_count(void * array) {
-	struct Array * self = array;
+const unsigned int array_count(void * _self) {
+	struct Array * self = _self;
 	return self -> count;
 }
 
-unsigned int array_size(void * array) {
-	struct Array * self = array;
+unsigned int array_size(void * _self) {
+	struct Array * self = _self;
 	return self -> size;
 }
