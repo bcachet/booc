@@ -31,7 +31,6 @@ static int Object_compare (const void * _self, const void * _b)
 {    
 	const struct Object * self = _self;
     const struct Object * b = _b;
-
     if (self == b)
         return COMPARE_EQUAL;
     else 
