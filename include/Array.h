@@ -20,9 +20,9 @@ extern const void * Array;
 
 	@param array Array that will store the Item
 	@param element Item that will be stored inside array	
-	@return index where the Item was stored
+	
 */
-unsigned int array_add(void * array, void * element);
+void array_add(void * array, void * element);
 
 /**
 	Add an Item to the array. Added item is retained by the array.
@@ -33,8 +33,19 @@ unsigned int array_add(void * array, void * element);
 */
 void * array_remove(void * array, unsigned int index);
 
+/**
+	Insert an Item at a given index
+	@param array Array that will store the Item
+	@param element Item that will be stored inside array
+	@param index Index where to store the item
+*/
 unsigned int array_insert(void * array, void * element, unsigned int index);
 
+/**
+	Return item stored inside array at given index
+	@param array Array where the object is stored
+	@param index Index where is stored the item
+*/
 void * array_get(void * array, unsigned int index);
 
 /**

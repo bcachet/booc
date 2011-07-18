@@ -1,8 +1,13 @@
+#include <time.h>
+
 #include "unity.h"
 
 #include "Array.h"
 #include "Object.h"
 #include "Class.h"
+
+
+#include "Array.r"
 
 struct Array *a;
 struct Object *o;
@@ -12,6 +17,7 @@ struct Object *o;
 void setUp(void)
 {
 	a = new(Array, INIT_ARRAY_SIZE);
+
 	o = new(Object);
 }
  
@@ -42,9 +48,9 @@ void test_AddWithMemoryReallocation(void) {
 
 void test_Remove(void) {
 	TEST_ASSERT_EQUAL_INT(array_count(a), 0);
-	int index = array_add(a, o);
+	array_add(a, o);
 	TEST_ASSERT_EQUAL_INT(array_count(a), 1);
-	struct Object* item = array_remove(a, index);
+	struct Object* item = array_remove(a, 0);
 	TEST_ASSERT(compare(item, o) == COMPARE_EQUAL);
 }
 
@@ -61,4 +67,38 @@ void test_Insert(void) {
 	TEST_ASSERT(compare(array_get(a, 2), o) == COMPARE_EQUAL);
 	TEST_ASSERT(compare(array_get(a, 1), o) == COMPARE_EQUAL);
 	release(b);
+}
+
+void test_Performance() {
+	fprintf(stderr, "test_Performance\n");
+	const int size = 1024*1024;
+	
+	struct Array *array = new(Array, 2*size);
+	// void ** array = malloc(2*size*sizeof(void*));
+	struct Object *obj = new(Object);
+	int i = 0;
+	time_t start = clock();
+	for (i = 0; i < 2*size; i++) {
+		// array_add(array, obj);
+		array -> objects[i] = obj;
+	}
+	fprintf(stderr, "Elapsed time: %lu\n", clock() - start);
+	release(array);
+	release(obj);
+}
+
+void test_Performance2() {
+		fprintf(stderr, "test_Performance comparison\n");
+	const int size = 1024*1024;
+	
+	struct Array *array = new(Array, 2*size);
+	struct Object *obj = new(Object);
+	int i = 0;
+	time_t start = clock();
+	for (i = 0; i < 2*size; i++) {
+		array -> objects[i] = obj;
+	}
+	fprintf(stderr, "Elapsed time: %lu\n", clock() - start);
+	release(array);
+	release(obj);
 }
