@@ -15,7 +15,6 @@ static void * Array_ctor (void * _self, va_list * app) {
 	const int size = va_arg(* app, int);
 	self -> size = size;
 	self -> objects = realloc(NULL, size*sizeof(void*));
-	self -> lastObject = self -> objects;
 	self -> count = 0;
 	assert(self -> objects);
 	return self;

@@ -69,36 +69,48 @@ void test_Insert(void) {
 	release(b);
 }
 
-void test_Performance() {
-	fprintf(stderr, "test_Performance\n");
+void add(void** array, void * obj) {
+	struct Array * _array = array;
+	_array -> objects[_array -> count] = obj;
+	_array -> count ++;
+}
+
+void test_Performance2() {
+	fprintf(stderr, "test_Performance comparison\n");
 	const int size = 1024*1024;
 	
-	struct Array *array = new(Array, 2*size);
-	// void ** array = malloc(2*size*sizeof(void*));
+	void * *array = new(Array, 2*size);
 	struct Object *obj = new(Object);
 	int i = 0;
+	for (i = 0; i < 2*size; i++) {
+		struct Array * _array = array;
+		_array -> objects[i] = obj;
+	}
+
 	time_t start = clock();
 	for (i = 0; i < 2*size; i++) {
-		// array_add(array, obj);
-		array -> objects[i] = obj;
+		add(array, obj);
 	}
 	fprintf(stderr, "Elapsed time: %lu\n", clock() - start);
 	release(array);
 	release(obj);
 }
 
-void test_Performance2() {
-		fprintf(stderr, "test_Performance comparison\n");
+void test_Performance() {
+	fprintf(stderr, "test_Performance\n");
 	const int size = 1024*1024;
 	
 	struct Array *array = new(Array, 2*size);
 	struct Object *obj = new(Object);
 	int i = 0;
+	void ** ptr = array -> objects;
 	time_t start = clock();
 	for (i = 0; i < 2*size; i++) {
-		array -> objects[i] = obj;
+		array_add(array, obj);
+
 	}
 	fprintf(stderr, "Elapsed time: %lu\n", clock() - start);
 	release(array);
 	release(obj);
 }
+
