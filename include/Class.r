@@ -1,5 +1,5 @@
-#ifndef	CLASS_R
-#define	CLASS_R
+#ifndef	_CLASS_R_
+#define	_CLASS_R_
 
 #include <stdarg.h>
 #include <stdio.h>
