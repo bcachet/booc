@@ -14,7 +14,6 @@ static void * Array_ctor (void * _self, va_list * app) {
 	const int size = va_arg(* app, int);
 	self -> size = size;
 	self -> objects = realloc(NULL, size*sizeof(void*));
-	self -> lastObject = self -> objects;
 	self -> count = 0;
 	assert(self -> objects);
 	return self;
@@ -28,10 +27,29 @@ static void * Array_dtor (void * _self)
 	return self;
 }
 
+static int * Array_compare(void * _self, void * _b) {
+	const struct Array * self = _self;
+    const struct Array * b = _b;
+
+    if (self == b)
+        return COMPARE_EQUAL;
+    if (! b || class(b) != Array)
+        return COMPARE_DIFFERENT;
+    if (self -> count == b -> count) {
+    	int i = 0;
+    	for (i = 0; i < self -> count; i++) {
+    		if (compare(self -> objects[i], b -> objects [i]) == COMPARE_DIFFERENT)
+    			return COMPARE_DIFFERENT;
+    	}
+    	return COMPARE_EQUAL;
+    }
+    return COMPARE_DIFFERENT;
+}
+
 static const struct Class _Array = {
 	sizeof(struct Array),
 	Array_ctor, Array_dtor,
-	NULL, NULL
+	NULL, Array_compare
 };
 
 const void * Array = & _Array;

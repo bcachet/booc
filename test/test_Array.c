@@ -55,7 +55,7 @@ void test_Remove(void) {
 }
 
 void test_Insert(void) {
-	struct Object *b = new(Object);
+	struct Array *b = new(Object);
 	array_add(a, o);
 	TEST_ASSERT_EQUAL_INT(array_count(a), 1);
 	TEST_ASSERT_EQUAL_INT(array_insert(a, b, 0), 0);
@@ -73,7 +73,7 @@ void add(struct Array * self, void * element) {
 	if(self -> count >= self -> size) {
 		array_reallocateMemory(self);
 	}
-	self -> objects[self -> count] = retain(element);
+	self -> objects[self -> count] = element;
 	self -> count ++;
 }
 
@@ -96,7 +96,7 @@ void test_Performance2() {
 		// array -> objects [i] = obj;
 		// array -> count ++;
 	}
-	// array -> count = 0;
+	array -> count = 0;
 	fprintf(stderr, "Reference :: Elapsed time: %lu\n", clock() - start);
 	release(array);
 	release(obj);
