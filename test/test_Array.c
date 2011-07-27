@@ -20,7 +20,7 @@ void setUp(void)
 
 	o = new(Object);
 }
- 
+
 void tearDown(void)
 {
 	release(a);
@@ -80,7 +80,7 @@ void add(struct Array * self, void * element) {
 void test_Performance2() {
 	fprintf(stderr, "test_Performance comparison\n");
 	const int size = 10240;
-	
+
 	struct Array *array = new(Array, size);
 	struct Object *obj = new(Object);
 	int i = 0;
@@ -101,3 +101,4 @@ void test_Performance2() {
 	release(array);
 	release(obj);
 }
+

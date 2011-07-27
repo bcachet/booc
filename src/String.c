@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 #include "String.h"
 #include "String.r"
@@ -23,7 +24,6 @@ static void * String_ctor (void * _self, va_list * app) {
 static void * String_dtor (void * _self)
 {
   struct String * self = _self;
-
   free(self -> text), self -> text = 0;
   return self;
 }

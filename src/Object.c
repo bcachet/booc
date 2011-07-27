@@ -1,5 +1,6 @@
 #include <assert.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 #include "Object.h"
 #include "Object.r"
