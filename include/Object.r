@@ -2,8 +2,8 @@
 #define _OBJECT_R_
 
 struct Object {
-	const void * class;
-	int ref_count;
+  const void * class;
+  int ref_count;
 };
 
 #endif

@@ -4,9 +4,9 @@
 #include "Object.r"
 
 struct Complex {
-	const struct Object _;
-	double real;
-	double imaginary;
+  const struct Object _;
+  double real;
+  double imaginary;
 };
 
 #endif

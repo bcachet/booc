@@ -4,8 +4,8 @@
 #include "Object.r"
 
 struct String {
-	const struct Object _;
-	char * text;
+  const struct Object _;
+  char * text;
 };
 
 #endif

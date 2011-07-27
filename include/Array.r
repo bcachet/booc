@@ -4,10 +4,10 @@
 #include "Object.r"
 
 struct Array {
-	const struct Object _;
-	void ** objects;
-	unsigned int count;
-	unsigned int size;
+  const struct Object _;
+  void ** objects;
+  unsigned int count;
+  unsigned int size;
 };
 
 #endif

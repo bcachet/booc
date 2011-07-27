@@ -3,9 +3,9 @@
 
 #include <stddef.h>
 
-enum	OBJECT_COMPARISON {
-	COMPARE_EQUAL, 
-	COMPARE_DIFFERENT
+enum OBJECT_COMPARISON {
+  COMPARE_EQUAL,
+  COMPARE_DIFFERENT
 };
 
 void * new (const void * class, ...);
