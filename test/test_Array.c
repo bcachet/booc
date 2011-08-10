@@ -17,7 +17,6 @@ struct Object *o;
 void setUp(void)
 {
 	a = new(Array, INIT_ARRAY_SIZE);
-
 	o = new(Object);
 }
 

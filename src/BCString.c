@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#include "String.h"
-#include "String.r"
+#include "BCString.h"
+#include "BCString.r"
 #include "Class.h"
 #include "Class.r"
 
@@ -41,7 +41,7 @@ static int String_compare (const void * _self, const void * _b)
 
   if (self == b)
     return COMPARE_EQUAL;
-  if (! b || class(b) != String)
+  if (! b || !isOfClass(b, String))
     return COMPARE_DIFFERENT;
   return strcmp(self -> text, b -> text) == 0 ? COMPARE_EQUAL : COMPARE_DIFFERENT;
 }

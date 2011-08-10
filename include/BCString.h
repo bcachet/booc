@@ -1,5 +1,5 @@
-#ifndef	_STRING_H_
-#define	_STRING_H_
+#ifndef	___STRING_H___
+#define	___STRING_H___
 
 #include "Object.h"
 

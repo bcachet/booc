@@ -7,6 +7,7 @@
 #include "Array.r"
 #include "Class.h"
 #include "Class.r"
+#include "Object.h"
 
 static void * Array_ctor (void * _self, va_list * app) {
   // Call Super constructor
@@ -27,13 +28,13 @@ static void * Array_dtor (void * _self) {
   return self;
 }
 
-static int * Array_compare(void * _self, void * _b) {
+static int Array_compare(void * _self, void * _b) {
   const struct Array * self = _self;
   const struct Array * b = _b;
 
   if (self == b)
     return COMPARE_EQUAL;
-  if (! b || class(b) != Array)
+  if (! b || !isOfClass(b, Array))
     return COMPARE_DIFFERENT;
   if (self -> count == b -> count) {
     int i = 0;
@@ -46,10 +47,13 @@ static int * Array_compare(void * _self, void * _b) {
   return COMPARE_DIFFERENT;
 }
 
+static void * Array_clone (const void * _self) {
+}
+
 static const struct Class _Array = {
   sizeof(struct Array),
   Array_ctor, Array_dtor,
-  NULL, Array_compare
+  Array_clone, Array_compare
 };
 
 const void * Array = & _Array;

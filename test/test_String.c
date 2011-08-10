@@ -1,6 +1,6 @@
 #include "unity.h"
 
-#include "String.h"
+#include "BCString.h"
 #include "Object.h"
 #include "Class.h"
 

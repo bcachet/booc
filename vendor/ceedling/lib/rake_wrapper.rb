@@ -2,6 +2,9 @@ require 'rubygems'
 require 'rake'
 require 'makefile' # our replacement for rake's make-style dependency loader
 
+include Rake::DSL
+
+
 class Rake::Task
   attr_reader :already_invoked
 end

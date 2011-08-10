@@ -10,7 +10,8 @@ I want to have a TDD approach using the Ceedling project which embed Unity testi
 Here is a list of the approach I want to test:
  * `Object Oriented Programming in C Approaches`_
  * `OOC Programming language`_
- * `Object Oriented Programming in C`_ 
+ * `Object Oriented Programming in C`_
+ * `ID-Objmodel`_
 
 
 
@@ -44,7 +45,7 @@ You just have to specify in the project.yml what is the test_file_prefix.
 
 After you have selected the Build System to use in Tools > Build System, you just have to hit Cmd + B to launch the unit tests and see the result.
 
-
+.. _ID-Objmodel: http://www.piumarta.com/software/id-objmodel/
 .. _OOC Programming language: http://ooc-lang.org/
 .. _Object Oriented Programming in C: http://www.cs.rit.edu/~ats/books/ooc.pdf
 .. _Object Oriented Programming in C Approaches: http://home.comcast.net/~fbui/OOC.html
