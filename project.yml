@@ -29,7 +29,7 @@
   :source:
     - src/**
   :include:
-    - include
+    - include/**
   :support:
     - test/support
   
