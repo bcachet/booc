@@ -101,3 +101,8 @@ void test_Performance2() {
 	release(obj);
 }
 
+void test_Clone() {
+  void *c = clone(a);
+  TEST_ASSERT_EQUAL_INT(COMPARE_EQUAL, compare(c, a));
+  release(c);
+}

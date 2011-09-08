@@ -1,13 +1,10 @@
 #include <assert.h>
-#include <string.h>
 #include <stdlib.h>
 #include <stdarg.h>
+#include <stdio.h>
 
 #include "Array.h"
 #include "Array.r"
-#include "Class.h"
-#include "Class.r"
-#include "Object.h"
 
 static void * Array_ctor (void * _self, va_list * app) {
   // Call Super constructor
@@ -29,12 +26,11 @@ static void * Array_dtor (void * _self) {
 }
 
 static int Array_compare(void * _self, void * _b) {
-  const struct Array * self = _self;
-  const struct Array * b = _b;
-
+  struct Array * self = _self;
+  struct Array * b = _b;
   if (self == b)
     return COMPARE_EQUAL;
-  if (! b || !isOfClass(b, Array))
+  if (isOfClass(b, Array) == false || isOfClass(self, Array) == false)
     return COMPARE_DIFFERENT;
   if (self -> count == b -> count) {
     int i = 0;
@@ -48,6 +44,13 @@ static int Array_compare(void * _self, void * _b) {
 }
 
 static void * Array_clone (const void * _self) {
+  const struct Array * self = _self;
+  void *_clone = new(Array, self -> size);
+  int i;
+  for (i = 0; i < self -> count; i++) {
+    array_add(_clone, self -> objects[i]);
+  }
+  return _clone;
 }
 
 static const struct Class _Array = {

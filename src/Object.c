@@ -64,6 +64,8 @@ void release (void * _object) {
 }
 
 bool isOfClass(const void * _object, const void * _class) {
+  if (_object == NULL)
+    return false;
   const struct Object * self = _object;
   return self -> class == _class;
 }

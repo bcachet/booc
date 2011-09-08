@@ -10,6 +10,8 @@
   @version 0.1
 */
 
+#include "Object.h"
+
 extern const void * Array;
 
 //! Size memory is increased when reallocating size for the array

@@ -5,6 +5,8 @@
 
 #include <stdbool.h>
 
+#include "Class.h"
+
 extern const void * Object;
 
 void * retain (void * object);

@@ -1,6 +1,8 @@
 #ifndef	_COMPLEX_H_
 #define	_COMPLEX_H_
 
+#include "Object.h"
+
 extern const void * Complex;
 
 double real(void * complex);

@@ -5,10 +5,6 @@
 
 #include "Complex.h"
 #include "Complex.r"
-#include "Object.h"
-#include "Object.r"
-#include "Class.h"
-#include "Class.r"
 
 
 static void * Complex_ctor (void * _self, va_list * app) {

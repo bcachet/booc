@@ -30,6 +30,7 @@
     - src/**
   :include:
     - include/**
+    - private_headers/**
   :support:
     - test/support
   
