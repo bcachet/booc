@@ -54,7 +54,7 @@ void * array_get(void * array, unsigned int index);
   Return the number of element stored inside the Array
   @return Number of elements in the array
 */
-const unsigned int array_count(void * array);
+unsigned int array_count(void * array);
 
 /**
   Return the size of the array: how many elements it can store without

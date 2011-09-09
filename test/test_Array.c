@@ -27,53 +27,53 @@ void tearDown(void)
 }
 
 void test_AddCount(void) {
-	TEST_ASSERT_EQUAL_INT(array_count(a), 0);
-	array_add(a, o);
-	TEST_ASSERT_EQUAL_INT(array_count(a), 1);
-	array_add(a, o);
-	array_add(a, o);
-	TEST_ASSERT_EQUAL_INT(array_count(a), 3);
+	TEST_ASSERT_EQUAL_INT(a -> count(a), 0);
+	a -> add(a, o);
+	TEST_ASSERT_EQUAL_INT(a -> count(a), 1);
+	a -> add(a, o);
+	a -> add(a, o);
+	TEST_ASSERT_EQUAL_INT(a -> count(a), 3);
 }
 
 void test_AddWithMemoryReallocation(void) {
-	TEST_ASSERT_EQUAL_INT(array_count(a), 0);
-	TEST_ASSERT_EQUAL_INT(array_size(a), INIT_ARRAY_SIZE);
+	TEST_ASSERT_EQUAL_INT(a -> count(a), 0);
+	TEST_ASSERT_EQUAL_INT(a -> size(a), INIT_ARRAY_SIZE);
 	int i = 0;
 	for (i = 0; i <= INIT_ARRAY_SIZE; i++)
-		array_add(a, o);
-	TEST_ASSERT_EQUAL_INT(array_count(a), INIT_ARRAY_SIZE + 1);
-	TEST_ASSERT_EQUAL_INT(array_size(a), INIT_ARRAY_SIZE + ARRAY_REALLOCATION_SIZE);
+		a -> add(a, o);
+	TEST_ASSERT_EQUAL_INT(a -> count(a), INIT_ARRAY_SIZE + 1);
+	TEST_ASSERT_EQUAL_INT(a -> size(a), INIT_ARRAY_SIZE + ARRAY_REALLOCATION_SIZE);
 }
 
 void test_Remove(void) {
-	TEST_ASSERT_EQUAL_INT(array_count(a), 0);
-	array_add(a, o);
-	TEST_ASSERT_EQUAL_INT(array_count(a), 1);
-	struct Object* item = array_remove(a, 0);
+	TEST_ASSERT_EQUAL_INT(a -> count(a), 0);
+	a -> add(a, o);
+	TEST_ASSERT_EQUAL_INT(a -> count(a), 1);
+	struct Object* item = a -> remove(a, 0);
 	TEST_ASSERT(compare(item, o) == COMPARE_EQUAL);
 }
 
 void test_Insert(void) {
 	struct Array *b = new(Object);
-	array_add(a, o);
-	TEST_ASSERT_EQUAL_INT(array_count(a), 1);
-	TEST_ASSERT_EQUAL_INT(array_insert(a, b, 0), 0);
-	TEST_ASSERT_EQUAL_INT(array_count(a), 2);
-	TEST_ASSERT_EQUAL_INT(array_insert(a, o, 2), 2);
-	TEST_ASSERT_EQUAL_INT(array_count(a), 3);
-	TEST_ASSERT_EQUAL_INT(array_insert(a, o, 3), 3);
-	TEST_ASSERT(compare(array_get(a, 0), b) == COMPARE_EQUAL);
-	TEST_ASSERT(compare(array_get(a, 2), o) == COMPARE_EQUAL);
-	TEST_ASSERT(compare(array_get(a, 1), o) == COMPARE_EQUAL);
+	a -> add(a, o);
+	TEST_ASSERT_EQUAL_INT(a -> count(a), 1);
+	TEST_ASSERT_EQUAL_INT(a -> insert(a, b, 0), 0);
+	TEST_ASSERT_EQUAL_INT(a -> count(a), 2);
+	TEST_ASSERT_EQUAL_INT(a -> insert(a, o, 2), 2);
+	TEST_ASSERT_EQUAL_INT(a -> count(a), 3);
+	TEST_ASSERT_EQUAL_INT(a -> insert(a, o, 3), 3);
+	TEST_ASSERT(compare(a -> get(a, 0), b) == COMPARE_EQUAL);
+	TEST_ASSERT(compare(a -> get(a, 2), o) == COMPARE_EQUAL);
+	TEST_ASSERT(compare(a -> get(a, 1), o) == COMPARE_EQUAL);
 	release(b);
 }
 
 void add(struct Array * self, void * element) {
-	if(self -> count >= self -> size) {
+	if(self -> _count >= self -> _size) {
 		array_reallocateMemory(self);
 	}
-	self -> objects[self -> count] = element;
-	self -> count ++;
+	self -> objects[self -> _count] = element;
+	self -> _count ++;
 }
 
 void test_Performance2() {
@@ -85,17 +85,17 @@ void test_Performance2() {
 	int i = 0;
 	time_t start = clock();
 	for (i = 0; i < size; i++) {
-		array_add(array, obj);
+		a -> add(array, obj);
 	}
 	fprintf(stderr, "Using Array Class :: Elapsed time: %lu\n", clock() - start);
 	start = clock();
-	array_clear(array);
+	a -> clear(array);
 	for (i = 0; i < size; i++) {
 		add(array, obj);
 		// array -> objects [i] = obj;
-		// array -> count ++;
+		// array -> _count ++;
 	}
-	array -> count = 0;
+	array -> _count = 0;
 	fprintf(stderr, "Reference :: Elapsed time: %lu\n", clock() - start);
 	release(array);
 	release(obj);
