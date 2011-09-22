@@ -49,18 +49,21 @@ const void * Object = & _Object;
 
 void * retain (void * _object) {
   struct Object * self = _object;
+#ifdef REFERENCE_COUNTING
   self -> ref_count++;
+#endif
   return self;
 }
 
 void release (void * _object) {
   struct Object * self = _object;
-
+#ifdef REFERENCE_COUNTING
   self -> ref_count--;
   if (self -> ref_count < 0)
     Throw(OBJECT_RELEASE_DELETED_OBJECT);
   if (self -> ref_count == 0)
     delete(_object);
+#endif
 }
 
 bool isOfClass(const void * _object, const void * _class) {

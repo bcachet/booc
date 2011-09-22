@@ -68,35 +68,37 @@ void test_Insert(void) {
 	release(b);
 }
 
-void add(struct Array * self, void * element) {
+unsigned int add(struct Array * self, void * element) {
 	if(self -> _count >= self -> _size) {
 		array_reallocateMemory(self);
 	}
-	self -> objects[self -> _count] = element;
+	self -> _objects[self -> _count] = element;
 	self -> _count ++;
+  return self -> count - 1;
 }
 
-void test_Performance2() {
+void test_Performance() {
 	fprintf(stderr, "test_Performance comparison\n");
 	const int size = 10240;
 
 	struct Array *array = new(Array, size);
 	struct Object *obj = new(Object);
 	int i = 0;
-	time_t start = clock();
-	for (i = 0; i < size; i++) {
-		a -> add(array, obj);
-	}
-	fprintf(stderr, "Using Array Class :: Elapsed time: %lu\n", clock() - start);
+	time_t start;
 	start = clock();
-	a -> clear(array);
 	for (i = 0; i < size; i++) {
 		add(array, obj);
-		// array -> objects [i] = obj;
-		// array -> _count ++;
 	}
-	array -> _count = 0;
 	fprintf(stderr, "Reference :: Elapsed time: %lu\n", clock() - start);
+  array -> count = 0;
+  start = clock();
+	for (i = 0; i < size; i++) {
+		array -> add(array, obj);
+	}
+	fprintf(stderr, "Using Array Class :: Elapsed time: %lu\n", clock() - start);
+	array -> clear(array);
+
+
 	release(array);
 	release(obj);
 }
@@ -106,3 +108,5 @@ void test_Clone() {
   TEST_ASSERT_EQUAL_INT(COMPARE_EQUAL, compare(c, a));
   release(c);
 }
+
+
