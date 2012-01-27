@@ -25,9 +25,9 @@ static void * Array_dtor (void * _self) {
   return self;
 }
 
-static int Array_compare(void * _self, void * _b) {
-  struct Array * self = _self;
-  struct Array * b = _b;
+static int Array_compare(const void * _self, const void * _b) {
+  const struct Array * self = _self;
+  const struct Array * b = _b;
   if (self == b)
     return COMPARE_EQUAL;
   if (isOfClass(b, Array) == false || isOfClass(self, Array) == false)
