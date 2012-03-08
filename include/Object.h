@@ -7,7 +7,15 @@
 
 #include "Class.h"
 
-extern const void * Object;
+/**
+  @file Object.h
+  @brief Object offer methods to handle ref counting
+
+  @author Bertrand Cachet
+*/
+
+
+extern struct Object;
 
 void * retain (void * object);
 void release (void * object);

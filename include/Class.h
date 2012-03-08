@@ -2,6 +2,12 @@
 #define	_CLASS_H_
 
 #include <stddef.h>
+/**
+  @file Class.h
+  @brief Offer methods to create/delete/compare objects
+
+  @author Bertrand Cachet
+*/
 
 enum OBJECT_COMPARISON {
   COMPARE_EQUAL,

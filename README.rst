@@ -66,6 +66,6 @@ just have to hit Cmd + B to launch the unit tests and see the result.
 .. _ID-Objmodel: http://www.piumarta.com/software/id-objmodel/
 .. _OOC Programming language: http://ooc-lang.org/
 .. _Object Oriented Programming in C: http://www.cs.rit.edu/~ats/books/ooc.pdf
-.. _Object Oriented Programming in C Approaches: http://home.comcast.net/~fbui/OOC.html
+.. _Object Oriented Programming in C Approaches: http://www.d.umn.edu/~gshute/C/ooC/ooC.html
 
 
