@@ -14,12 +14,17 @@
   @author Bertrand Cachet
 */
 
+struct Object {
+  const struct Class * class;
+  int ref_count;
+};
 
-extern struct Object;
+extern const struct Class * ClassObject;
 
-void * retain (void * object);
-void release (void * object);
 
-bool isOfClass(const void * object, const void * class);
+void * retain (struct Object * object);
+void release (struct Object * object);
+
+bool isOfClass(const struct Object * object, const struct Class * class);
 
 #endif

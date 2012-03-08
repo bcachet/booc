@@ -4,13 +4,10 @@
 #include <stdarg.h>
 
 #include "String.h"
-#include "String.r"
-#include "Class.h"
-#include "Class.r"
 
-static void * String_ctor (void * _self, va_list * app) {
+static struct Class * String_ctor (struct Class * _self, va_list * app) {
   // Call Super constructor
-  struct String * self = ((const struct Class *) Object) -> ctor(_self, app);
+  struct String * self = ((const struct Class *) ClassObject) -> ctor(_self, app);
 
   // Set params
   const char * text = va_arg(* app, const char *);
@@ -21,27 +18,27 @@ static void * String_ctor (void * _self, va_list * app) {
   return self;
 }
 
-static void * String_dtor (void * _self)
+static struct Class * String_dtor (struct Class * _self)
 {
   struct String * self = _self;
   free(self -> text), self -> text = 0;
   return self;
 }
 
-static void * String_clone (const void * _self)
+static struct Class * String_clone (const struct Class * _self)
 {
   const struct String * self = _self;
-  return new(String, self -> text);
+  return new(ClassString, self -> text);
 }
 
-static int String_compare (const void * _self, const void * _b)
+static int String_compare (const struct Class * _self, const struct Class * _b)
 {
   const struct String * self = _self;
   const struct String * b = _b;
 
   if (self == b)
     return COMPARE_EQUAL;
-  if (isOfClass(b, String) == false || isOfClass(self, String) == false)
+  if (isOfClass(b, ClassString) == false || isOfClass(self, ClassString) == false)
     return COMPARE_DIFFERENT;
   return strcmp(self -> text, b -> text) == 0 ? COMPARE_EQUAL : COMPARE_DIFFERENT;
 }
@@ -52,11 +49,10 @@ static const struct Class _String = {
   String_clone, String_compare
 };
 
-const void * String = & _String;
+const struct Class * ClassString = & _String;
 
 
-char * string(void * _self) {
-  const struct String * self = _self;
+char * string(const struct String * self) {
   return self -> text;
 }
 

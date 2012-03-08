@@ -1,24 +1,24 @@
 #include "unity.h"
 
-#include "String.h"
-#include "Object.h"
 #include "Class.h"
+#include "Object.h"
+#include "String.h"
 
 struct String *a;
 struct String *b;
 struct String *c;
 void setUp(void)
 {
-	a = new(String, "a");
-	b = new(String, "b");
-	c = new(String, string(a));
+	a = (struct String*)new(ClassString, "a");
+	b = (struct String*)new(ClassString, "b");
+	c = (struct String*)new(ClassString, string(a));
 }
  
 void tearDown(void)
 {
-	release(a);
-	release(b);
-	release(c);
+	release((struct Object *)a);
+	release((struct Object *)b);
+	release((struct Object *)c);
 }
 
 void test_CompareDifferentObjects(void)

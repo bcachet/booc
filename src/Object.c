@@ -3,35 +3,28 @@
 #include <stdarg.h>
 
 #include "Object.h"
-#include "Object.r"
-#include "Class.h"
-#include "Class.r"
 
 #include "CException.h"
 
-static void * Object_ctor (void * _self, va_list * app)
+static struct Class * Object_ctor (struct Class * self, va_list * app)
 {
-  struct Object * self = _self;
-  self -> ref_count = 1;
+  ((struct Object *)self) -> ref_count = 1;
   return self;
 }
 
-static void * Object_dtor (void * _self)
+static struct Class * Object_dtor (struct Class * self)
 {
-  struct Object * self = _self;
-  self -> ref_count = 0;
+  ((struct Object *)self) -> ref_count = 0;
   return self;
 }
 
-static void * Object_clone (const void * _self)
+static struct Class * Object_clone (const struct Class * _self)
 {
-    return new(Object);
+    return new(ClassObject);
 }
 
-static int Object_compare (const void * _self, const void * _b)
+static int Object_compare (const struct Class * self, const struct Class * b)
 {
-  const struct Object * self = _self;
-  const struct Object * b = _b;
   if (self == b)
     return COMPARE_EQUAL;
   else
@@ -44,32 +37,28 @@ static const struct Class _Object = {
   Object_clone, Object_compare
 };
 
-const void * Object = & _Object;
+const struct Class * ClassObject = & _Object;
 
-
-void * retain (void * _object) {
-  struct Object * self = _object;
+void * retain (struct Object * self) {
 #ifdef REFERENCE_COUNTING
   self -> ref_count++;
 #endif
   return self;
 }
 
-void release (void * _object) {
-  struct Object * self = _object;
+void release (struct Object * self) {
 #ifdef REFERENCE_COUNTING
   self -> ref_count--;
   if (self -> ref_count < 0)
     Throw(OBJECT_RELEASE_DELETED_OBJECT);
   if (self -> ref_count == 0)
-    delete(_object);
+    delete((struct Class *)self);
 #endif
 }
 
-bool isOfClass(const void * _object, const void * _class) {
-  if (_object == NULL)
+bool isOfClass(const struct Object * self, const struct Class * _class) {
+  if (self == NULL)
     return false;
-  const struct Object * self = _object;
   return self -> class == _class;
 }
 

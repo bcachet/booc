@@ -2,9 +2,8 @@
 #include <stdlib.h>
 
 #include "Class.h"
-#include "Class.r"
 
-void * new (const void * _class, ...)
+void * new (const struct Class * _class, ...)
 {
   const struct Class * class = _class;
   void * p = calloc(1, class -> size);
@@ -22,7 +21,7 @@ void * new (const void * _class, ...)
   return p;
 }
 
-void delete (void * self)
+void delete (struct Class * self)
 {
   const struct Class ** cp = self;
   if (self && * cp && (* cp) -> dtor)
@@ -31,19 +30,19 @@ void delete (void * self)
   self = 0;
 }
 
-void * clone(const void * self) {
+void * clone(const struct Class * self) {
   const struct Class * const * cp = self;
   assert(self && (*cp) && ((* cp) -> clone));
   return (* cp) -> clone(self);
 }
 
-int compare(const void * self, const void * other) {
+int compare(const struct Class * self, const struct Class * other) {
   const struct Class * const * cp = self;
   assert(self && (*cp) && ((* cp) -> compare));
   return (* cp) -> compare(self, other);
 }
 
-size_t sizeOf (const void * self)
+size_t sizeOf (const struct Class * self)
 {
   const struct Class * const * cp = self;
 

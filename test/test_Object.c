@@ -1,7 +1,6 @@
 #include "unity.h"
 
 #include "Object.h"
-#include "Object.r"
 #include "Class.h"
 #include "CException.h"
 
@@ -10,8 +9,8 @@ struct Object *b;
 
 void setUp(void)
 {
-	a = new(Object);
-	b = new(Object);
+	a = new(ClassObject);
+	b = new(ClassObject);
 }
  
 void tearDown(void)
@@ -37,7 +36,7 @@ void test_RefCounting(void)
 }
 
 void test_ReleaseDeletedObject(void) {
-	struct Object *c = new(Object);
+	struct Object *c = new(ClassObject);
 	release(c);
 	CEXCEPTION_T e;
 	Try {

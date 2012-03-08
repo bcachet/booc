@@ -2,9 +2,16 @@
 #define	_BC_STRING_H_
 
 #include "Object.h"
+#include "Class.h"
 
-extern const void * String;
+extern const struct Class * ClassString;
 
-char * string(void * string);
+struct String {
+  const struct Object obj;
+  char * text;
+};
+
+
+char * string(const struct String * string);
 
 #endif
