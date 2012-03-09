@@ -3,7 +3,7 @@
 
 #include "Class.h"
 
-void * new (const struct Class * _class, ...)
+struct Class * new (const struct Class * _class, ...)
 {
   const struct Class * class = _class;
   void * p = calloc(1, class -> size);
