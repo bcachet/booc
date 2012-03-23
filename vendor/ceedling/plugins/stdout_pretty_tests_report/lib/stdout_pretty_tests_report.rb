@@ -5,9 +5,8 @@ class StdoutPrettyTestsReport < Plugin
   
   def setup
     @result_list = []
-    
-    template = @ceedling[:file_wrapper].read( File.join( PLUGINS_STDOUT_PRETTY_TESTS_REPORT_PATH, 'template.erb' ) )
-      
+    @plugin_root = File.expand_path(File.join(File.dirname(__FILE__), '..'))
+    template = @ceedling[:file_wrapper].read(File.join(@plugin_root, 'assets/template.erb'))
     @ceedling[:plugin_reportinator].register_test_results_template( template )
   end
   

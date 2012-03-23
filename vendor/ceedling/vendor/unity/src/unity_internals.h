@@ -163,11 +163,11 @@ extern int UNITY_OUTPUT_CHAR(int);
 //-------------------------------------------------------
 
 #ifndef UNITY_LINE_TYPE
-#define UNITY_LINE_TYPE unsigned short
+#define UNITY_LINE_TYPE _U_UINT
 #endif
 
 #ifndef UNITY_COUNTER_TYPE
-#define UNITY_COUNTER_TYPE unsigned short
+#define UNITY_COUNTER_TYPE _U_UINT
 #endif
 
 //-------------------------------------------------------
@@ -183,14 +183,23 @@ typedef void (*UnityTestFunction)(void);
 
 typedef enum
 {
+#if (UNITY_INT_WIDTH == 16)
+    UNITY_DISPLAY_STYLE_INT      = 2 + UNITY_DISPLAY_RANGE_INT + UNITY_DISPLAY_RANGE_AUTO,
+#elif (UNITY_INT_WIDTH  == 32)
     UNITY_DISPLAY_STYLE_INT      = 4 + UNITY_DISPLAY_RANGE_INT + UNITY_DISPLAY_RANGE_AUTO,
+#endif
     UNITY_DISPLAY_STYLE_INT8     = 1 + UNITY_DISPLAY_RANGE_INT,
     UNITY_DISPLAY_STYLE_INT16    = 2 + UNITY_DISPLAY_RANGE_INT,
     UNITY_DISPLAY_STYLE_INT32    = 4 + UNITY_DISPLAY_RANGE_INT,
 #ifdef UNITY_SUPPORT_64
     UNITY_DISPLAY_STYLE_INT64    = 8 + UNITY_DISPLAY_RANGE_INT,
 #endif
+
+#if (UNITY_INT_WIDTH == 16)
     UNITY_DISPLAY_STYLE_UINT     = 4 + UNITY_DISPLAY_RANGE_UINT + UNITY_DISPLAY_RANGE_AUTO,
+#elif (UNITY_INT_WIDTH  == 32)
+    UNITY_DISPLAY_STYLE_UINT     = 2 + UNITY_DISPLAY_RANGE_UINT + UNITY_DISPLAY_RANGE_AUTO,
+#endif
     UNITY_DISPLAY_STYLE_UINT8    = 1 + UNITY_DISPLAY_RANGE_UINT,
     UNITY_DISPLAY_STYLE_UINT16   = 2 + UNITY_DISPLAY_RANGE_UINT,
     UNITY_DISPLAY_STYLE_UINT32   = 4 + UNITY_DISPLAY_RANGE_UINT,
@@ -203,13 +212,14 @@ typedef enum
 #ifdef UNITY_SUPPORT_64
     UNITY_DISPLAY_STYLE_HEX64    = 8 + UNITY_DISPLAY_RANGE_HEX,
 #endif
+    UNITY_DISPLAY_STYLE_UNKNOWN
 } UNITY_DISPLAY_STYLE_T;
 
 struct _Unity
 {
     const char* TestFile;
     const char* CurrentTestName;
-    _UU32 CurrentTestLineNumber;
+    UNITY_LINE_TYPE CurrentTestLineNumber;
     UNITY_COUNTER_TYPE NumberOfTests;
     UNITY_COUNTER_TYPE TestFailures;
     UNITY_COUNTER_TYPE TestIgnores;

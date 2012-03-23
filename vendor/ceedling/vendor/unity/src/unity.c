@@ -44,6 +44,9 @@ const _U_UINT UnitySizeMask[] =
 #endif
 };
 
+void UnityPrintFail(void);
+void UnityPrintOk(void);
+
 //-----------------------------------------------
 // Pretty Printers & Test Result Output Handlers
 //-----------------------------------------------
@@ -218,6 +221,18 @@ void UnityPrintFloat(_UF number)
     UnityPrint(TempBuffer);
 }
 #endif
+
+//-----------------------------------------------
+
+void UnityPrintFail(void)
+{
+    UnityPrint("FAIL");
+}
+
+void UnityPrintOk(void)
+{
+    UnityPrint("OK");
+}
 
 //-----------------------------------------------
 void UnityTestResultsBegin(const char* file, const UNITY_LINE_TYPE line)
@@ -816,8 +831,8 @@ void UnityAssertEqualStringArray( const char** expected,
 //-----------------------------------------------
 void UnityAssertEqualMemory( const void* expected,
                              const void* actual,
-                             _UU32 length,
-                             _UU32 num_elements,
+                             const _UU32 length,
+                             const _UU32 num_elements,
                              const char* msg,
                              const UNITY_LINE_TYPE lineNumber)
 {
@@ -880,7 +895,7 @@ void UnityFail(const char* msg, const UNITY_LINE_TYPE line)
     UNITY_SKIP_EXECUTION;
 
     UnityTestResultsBegin(Unity.TestFile, line);
-    UnityPrint("FAIL");
+    UnityPrintFail();
     if (msg != NULL)
     {
       UNITY_OUTPUT_CHAR(':');
@@ -933,6 +948,10 @@ void UnityDefaultTestRun(UnityTestFunction Func, const char* FuncName, const int
 void UnityBegin(void)
 {
     Unity.NumberOfTests = 0;
+    Unity.TestFailures = 0;
+    Unity.TestIgnores = 0;
+    Unity.CurrentTestFailed = 0;
+    Unity.CurrentTestIgnored = 0;
 }
 
 //-----------------------------------------------
@@ -949,11 +968,11 @@ int UnityEnd(void)
     UNITY_PRINT_EOL;
     if (Unity.TestFailures == 0U)
     {
-        UnityPrint("OK");
+        UnityPrintOk();
     }
     else
     {
-        UnityPrint("FAIL");
+        UnityPrintFail();
     }
     UNITY_PRINT_EOL;
     return Unity.TestFailures;
