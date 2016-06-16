@@ -71,7 +71,7 @@
       - -c ${1}
       - -o ${2}
       - -g
-#      - -D REFERENCE_COUNTING
+      - -D REFERENCE_COUNTING
 
 :plugins:
   :load_paths:
