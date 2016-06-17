@@ -21,11 +21,11 @@ void* new (const Class* class, ...)
   return p;
 }
 
-void delete (void * self)
+void delete (Obj* self)
 {
-  const struct Class ** cp = self;
-  if (self && * cp && (* cp) -> dtor)
-    self = (* cp) -> dtor(self);
+  if(self && self->class && self->class->dtor){
+    self = self->class->dtor(self);
+  }
   free(self);
   self = 0;
 }
