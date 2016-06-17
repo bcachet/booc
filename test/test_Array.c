@@ -74,6 +74,9 @@ unsigned int add(struct Array * self, void * element) {
 	}
 	self -> _objects[self -> _count] = element;
 	self -> _count ++;
+#ifdef REFERENCE_COUNTING
+	self -> _objects[self -> _count] = retain(element);
+#endif
   return self -> count - 1;
 }
 
@@ -108,5 +111,3 @@ void test_Clone() {
   TEST_ASSERT_EQUAL_INT(COMPARE_EQUAL, compare(c, a));
   release(c);
 }
-
-
