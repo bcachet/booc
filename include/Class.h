@@ -17,7 +17,7 @@ struct Class {
   size_t size;
   void *(* ctor   ) (const Class* self, va_list * app);
   void *(* dtor   ) (Obj* self);
-  void *(* clone  ) (const void* self);
+  void *(* clone  ) (const Obj* self);
   int   (* compare) (const void* self, const void* other);
 };
 
@@ -27,10 +27,9 @@ struct Obj { // Object is already taken for now
 };
 
 void* new (const Class* class, ...);
-void delete(Obj* item);
-
-void * clone(const void * self);
-int compare(const void * self, const void * other);
+void  delete(Obj* item);
+Obj*  clone(const Obj* self);
+int   compare(const void * self, const void * other);
 
 size_t sizeOf (const void * self);
 

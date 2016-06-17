@@ -21,19 +21,20 @@ void* new (const Class* class, ...)
   return p;
 }
 
-void delete (Obj* self)
+void delete(Obj* self)
 {
-  if(self && self->class && self->class->dtor){
-    self = self->class->dtor(self);
+  if(self && self->class && self->class->dtor)
+  {
+    free(self->class->dtor(self));
   }
-  free(self);
-  self = 0;
 }
 
-void * clone(const void * self) {
-  const struct Class * const * cp = self;
-  assert(self && (*cp) && ((* cp) -> clone));
-  return (* cp) -> clone(self);
+Obj* clone(const Obj* self) {
+  if(self && self->class && self->class->clone)
+  {
+    return self->class->clone(self);
+  }
+  return (Obj*)0;
 }
 
 int compare(const void * self, const void * other) {
