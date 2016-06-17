@@ -1,12 +1,11 @@
 #include <assert.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 #include "Class.h"
-#include "Class.r"
 
-void * new (const void * _class, ...)
+void* new (const Class* class, ...)
 {
-  const struct Class * class = _class;
   void * p = calloc(1, class -> size);
 
   assert(p);
@@ -15,26 +14,27 @@ void * new (const void * _class, ...)
   if (class -> ctor)
   {
     va_list ap;
-    va_start(ap, _class);
+    va_start(ap, class);
     p = class -> ctor(p, & ap);
     va_end(ap);
   }
   return p;
 }
 
-void delete (void * self)
+void delete(Obj* self)
 {
-  const struct Class ** cp = self;
-  if (self && * cp && (* cp) -> dtor)
-    self = (* cp) -> dtor(self);
-  free(self);
-  self = 0;
+  if(self && self->class && self->class->dtor)
+  {
+    free(self->class->dtor(self));
+  }
 }
 
-void * clone(const void * self) {
-  const struct Class * const * cp = self;
-  assert(self && (*cp) && ((* cp) -> clone));
-  return (* cp) -> clone(self);
+Obj* clone(const Obj* self) {
+  if(self && self->class && self->class->clone)
+  {
+    return self->class->clone(self);
+  }
+  return (Obj*)0;
 }
 
 int compare(const void * self, const void * other) {

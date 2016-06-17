@@ -1,7 +1,7 @@
 #ifndef _OBJECT_R_
 #define _OBJECT_R_
 
-#include "Class.r"
+#include "Class.h"
 
 struct Object {
   const void * class;
