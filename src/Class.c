@@ -2,7 +2,6 @@
 #include <stdlib.h>
 
 #include "Class.h"
-#include "Class.r"
 
 void * new (const void * _class, ...)
 {
