@@ -1,11 +1,11 @@
 #include <assert.h>
 #include <stdlib.h>
+#include <stdarg.h>
 
 #include "Class.h"
 
-void * new (const void * _class, ...)
+void* new (const Class* class, ...)
 {
-  const struct Class * class = _class;
   void * p = calloc(1, class -> size);
 
   assert(p);
@@ -14,7 +14,7 @@ void * new (const void * _class, ...)
   if (class -> ctor)
   {
     va_list ap;
-    va_start(ap, _class);
+    va_start(ap, class);
     p = class -> ctor(p, & ap);
     va_end(ap);
   }

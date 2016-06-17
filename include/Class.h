@@ -8,8 +8,19 @@ enum OBJECT_COMPARISON {
   COMPARE_DIFFERENT
 };
 
-void * new (const void * class, ...);
 void delete (void * item);
+typedef struct Class Class;
+
+struct Class {
+  size_t size;
+  void *(* ctor   ) (const Class* self, va_list * app);
+  void *(* dtor   ) (void* self);
+  void *(* clone  ) (const void* self);
+  int   (* compare) (const void* self, const void* other);
+};
+
+void* new (const Class* class, ...);
+void delete (void* item);
 
 void * clone(const void * self);
 int compare(const void * self, const void * other);
